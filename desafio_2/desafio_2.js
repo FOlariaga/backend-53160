@@ -1,3 +1,4 @@
+const { Console } = require("console")
 const fs = require("fs")
 
 class ProductManager {
@@ -47,7 +48,8 @@ class ProductManager {
     getProduct() {
         const fileProducts = JSON.parse(fs.readFileSync(this.path, "utf-8"))
         this.products = fileProducts
-        console.log(fileProducts)
+        console.log("productos conseguidos con exito");
+        console.log(fileProducts);
         return fileProducts
     }
 
@@ -57,8 +59,9 @@ class ProductManager {
         for (let i = 0; i < this.products.length; i++) {
             const product = this.products[i]
             if (product.id === idProduct) {
+                Console.log("producto encontrado por su id")
                 console.log(this.products[i])
-                return this.products
+                return product
             }
         }
         console.log("Not found")
@@ -78,6 +81,7 @@ class ProductManager {
                 const value = Object.values(dataToUpdate)
 
                 this.products[i][key] = value[0]
+                console.log("dato modificado correctamente");
                 fs.writeFileSync(this.path, JSON.stringify(this.products))
 
             }
@@ -91,6 +95,7 @@ class ProductManager {
             const product = this.products[i]
             if (product.id === idProduct) {
                 this.products.splice(i ,1)
+                console.log("se elimino el producto correctamente");
                 fs.writeFileSync(this.path, JSON.stringify(this.products))
             }
         }
